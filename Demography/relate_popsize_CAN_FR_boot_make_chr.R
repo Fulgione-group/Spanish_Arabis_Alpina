@@ -1,0 +1,94 @@
+
+
+####
+options(scipen = 999)
+setwd("PATH_TO_WD/Relate_no_genes_0kb")
+nchunks_chr<-c()
+i <- 1
+chunk_counter<-0
+
+##create 5 Mbp segments (chunks) from the Aa genome using the relate input for Cantabria and Frenh
+for(i in 1:8){
+   haps<-read.table(file = paste("GATK4.2_1000Genomes_chrall.filteredQ30LD5UD100K.final.pall.CAN.FR.prephased.20PercentMissing.ParaOut.SNPable.phased.chrall.allsites.polarized.intersect.nogenes0kbUpDownStream.chr",as.character(i),".snps.haps",sep=""), sep=" ", header = F)
+   dist<-read.table(file = paste("GATK4.2_1000Genomes_chrall.filteredQ30LD5UD100K.final.pall.CAN.FR.prephased.20PercentMissing.ParaOut.SNPable.phased.chrall.allsites.polarized.intersect.nogenes0kbUpDownStream.chr",as.character(i),".dist",sep=""), sep=" ", header = F)
+   map <-read.table(file = paste("geneticMap_chr",as.character(i),"_4SpanishProject_relate.map",sep=""), sep=" ", header = T) 
+   lastpos <- haps[nrow(haps),3]
+   nchunks <- lastpos%/%5e6 + lastpos%%5e6/lastpos%%5e6
+   overlap <- round((5e6*nchunks -lastpos)/(nchunks-1))
+   nchunks_chr <- rbind(nchunks_chr,c(i, nchunks,lastpos))
+   for(j in 1:nchunks){
+     chunk_counter <- chunk_counter+1
+     if(j==1){
+       tmp_haps <- haps[haps$V3 >1 & haps$V3<=j*5e6,]
+       tmp_dist <- dist[dist$V1 >1 & dist$V1<=j*5e6,]
+       tmp_map <- map[map$pos >1 & map$pos<=j*5e6,]
+     }else{
+       tmp_haps <- haps[haps$V3 >(j-1)*5e6+1-(j-1)*overlap & haps$V3<=j*5e6-(j-1)*overlap,]
+       tmp_dist <- dist[dist$V1 >(j-1)*5e6+1-(j-1)*overlap & dist$V1<=j*5e6-(j-1)*overlap,]
+       tmp_map <- map[map$pos >(j-1)*5e6+1-(j-1)*overlap & map$pos<=j*5e6-(j-1)*overlap,]
+     }
+     write.table(tmp_haps,file = paste0("chunk", as.character(chunk_counter), ".haps"), col.names = F, row.names = F, quote = F)
+     write.table(tmp_dist,file = paste0("chunk", as.character(chunk_counter), ".dist"), col.names = F, row.names = F, quote = F)
+     write.table(tmp_map,file = paste0("chunk", as.character(chunk_counter), ".map"), col.names = T, row.names = F, quote = F)
+   }
+ }
+nchunks_chr <- as.data.frame(nchunks_chr)
+colnames(nchunks_chr) <- c("chr", "nchunks", "lastpos")
+
+#save orignal length of each chromsosome
+write.table(x = nchunks_chr, file = "nchunks_chr.txt", sep = "\t", col.names = T, row.names = F,quote = F )
+nchunks_chr<-read.table(file = "nchunks_chr.txt", header = T, sep="\t")
+#65 5 Mbp chunks in the genome
+chunk_counter<-65
+
+#create for each boot strap a new genome
+for(i in 1:100){
+  #each consisting of 8 chromsomes
+  for(j in 1:8){
+    #for each chromosome sample from all chunks but keep the original size
+    chunk_sample <- sample(x = 1:chunk_counter, size = nchunks_chr$nchunks[j], replace = T)
+    boothaps <- c()
+    bootdist <- c()
+    bootmap <- c()
+    m <- TRUE
+    for(k in 1:length(chunk_sample)){
+      tmp_haps <- read.table(file = paste0("chunk", as.character(chunk_sample[k]), ".haps"), sep=" ", header=F)
+      tmp_dist <- read.table(file = paste0("chunk", as.character(chunk_sample[k]), ".dist"), sep=" ", header=F)
+      tmp_map <- read.table(file = paste0("chunk", as.character(chunk_sample[k]), ".map"), sep=" ", header=T)
+
+      tmp_haps$V3 <- tmp_haps$V3 -tmp_haps$V3[1]+1 + (k-1)*5e6
+      tmp_dist$V1 <- tmp_dist$V1 -tmp_dist$V1[1]+1 + (k-1)*5e6
+      tmp_map$pos <- tmp_map$pos - tmp_map$pos[1]+1 + (k-1)*5e6
+
+      head(tmp_haps)
+      head(tmp_dist)
+      head(tmp_map)
+
+      if(k!=1){
+        bootdist$V2[nrow(bootdist)] <-tmp_dist$V1[1]-bootdist$V1[nrow(bootdist)]
+        if(nrow(tmp_map)!=0 & !m){
+          tmp_map$Genetic_Map <- tmp_map$Genetic_Map - tmp_map$Genetic_Map[1] + (bootmap$Genetic_Map[nrow(bootmap)] + (tmp_map$pos[1]-bootmap$pos[nrow(bootmap)])*bootmap$COMBINED_rate[nrow(bootmap)]/1e6)
+        }
+        if(k==length(chunk_sample)){
+          tmp_haps <- tmp_haps[tmp_haps$V3<=nchunks_chr$lastpos[j],]
+          tmp_dist <- tmp_dist[tmp_dist$V1<=nchunks_chr$lastpos[j],]
+          tmp_map <- tmp_map[tmp_map$pos<=nchunks_chr$lastpos[j],]
+        }
+      }
+      if(nrow(tmp_map)!=0 & m){
+        tmp_map$Genetic_Map <-tmp_map$Genetic_Map-tmp_map$Genetic_Map[1] + ( tmp_map$pos[1]*tmp_map$COMBINED_rate[1])/1e6
+        m <- FALSE
+      }
+      boothaps<- rbind(boothaps,tmp_haps)
+      bootdist<- rbind(bootdist,tmp_dist)
+      bootmap<- rbind(bootmap,tmp_map)
+    }
+    boothaps$V1<- j
+    colnames(bootdist)<- c("#pos", "dist")
+    write.table(boothaps,file = paste0("boot", as.character(i),"_chr",as.character(j), ".haps"), col.names = F, row.names = F, quote = F, sep=" ")
+    write.table(bootdist,file = paste0("boot", as.character(i),"_chr",as.character(j), ".dist"), col.names = T, row.names = F, quote = F, sep=" ")
+    write.table(bootmap,file = paste0("boot", as.character(i),"_chr",as.character(j), ".map"), col.names = T, row.names = F, quote = F, sep=" ")
+  }
+}
+
+
