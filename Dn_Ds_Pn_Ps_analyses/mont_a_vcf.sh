@@ -1,0 +1,1 @@
+java -Xmx8g -jar ../snpEff.jar -v aalpina5.1 /netscratch/dep_coupland/grp_fulgione/mehak/software/ka_ks/canta_vs_france_2/GATK4.2_1000Genomes_chrall.filteredQ30LD5UD100K.final.b.with_mont_a_3.vcf > GATK4.2_1000Genomes_chrall.filteredQ30LD5UD100K.final.b.with_mont_a_3.ann.vcf
