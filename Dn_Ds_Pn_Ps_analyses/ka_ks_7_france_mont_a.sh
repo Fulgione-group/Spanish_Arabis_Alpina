@@ -1,0 +1,1 @@
+python ka_ks_7.py /netscratch/dep_coupland/grp_fulgione/mehak/data_files/central_europe/france/GATK4.2_1000Genomes_chrall.filteredQ30LD5UD100K.final.b.with_mont_a_3.france_mont_a.ann.mis_syn.vcf mont_a output_kaks_7_france_mont_a.txt

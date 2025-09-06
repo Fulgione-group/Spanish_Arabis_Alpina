@@ -1,0 +1,1 @@
+python ka_ks_7.py /netscratch/dep_coupland/grp_fulgione/mehak/data_files/spain/GATK4.2_1000Genomes_chrall.filteredQ30LD5UD100K.final.b.with_mont_a_3.cantabria_mont_a.ann.mis_syn.vcf mont_a output_kaks_7_cantabria_mont_a.txt
