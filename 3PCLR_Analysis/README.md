@@ -22,3 +22,8 @@ Calculate F3 stats: "Rscript CalcDriftsF3.R GroupA_GroupB_Ref_SFS.tab GroupA_Gro
 ## 3PCLR
 
 run 3PCLR analysis per chromosome with minimum distance of 25 bp , 100 snps per window, : "run_3pclr_G1_G2_REF_chrX.sh"
+
+## Analysis of 3PCLR 
+Overlapping genes in tails and GO analysis of genes in tails: "3PCLR_final_analysis_V3.R" 
+
+
