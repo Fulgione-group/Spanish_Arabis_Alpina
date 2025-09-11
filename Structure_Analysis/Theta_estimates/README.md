@@ -1,7 +1,15 @@
-# Calculation of Theta watterson and pi, and TajD genome-wide
+# Calculation of Watterson’s theta, nucleotide diversity (π), and Tajima’s D genome-wide
 
-java src and bytcode for the custom scripts are in the subdirectories
+Java source files and bytecode for the custom scripts are located in the subdirectories.
 
-Prior to the admixture analysis only unrelated samples, and only sites with less than 10%  missing genotypes were retained. Multicopy regions inferred by ParaMask and unmappable regions inferred by SNPable as well as singletons were filtered out.
-Project down samples per population (to 1-cutoff = 90%) from a VCF that includes invariant sites (to preserve SNP densities and ensure correct denumerators), genotypes and populations are specified in the popfile: "run_CalcDiv_DownSample_Allsites_Allpop_final.sh"
+Prior to the analysis, only unrelated samples and sites with less than 10% missing genotypes were retained.  
+Multicopy regions inferred by ParaMask, unmappable regions inferred by SNPable, as well as singletons, were filtered out.
 
+Samples per population were projected down to 90% of the total sample size (to account for missing data) from a VCF that includes invariant sites.  
+Including invariant sites ensures preservation of SNP density and correct denominators in the calculations.  
+Genotypes and populations are specified in the `popfile`.
+
+The program outputs both **bin-wise estimates** (per genomic window) and **genome-wide estimates** of Watterson’s theta, nucleotide diversity (π), and Tajima’s D.
+
+- Run calculation:  
+  `run_CalcDiv_DownSample_Allsites_Allpop_final.sh`

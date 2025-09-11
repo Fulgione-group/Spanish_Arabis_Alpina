@@ -1,6 +1,10 @@
-# Test genotype associations of FRL1 with flowering time without vernalization and NAC055 with Aridity index
+# Test genotype associations of FRL1 with flowering time (without vernalization) and NAC055 with aridity index
 
-NAC055 is tested within Cantabria, FLR1 in Cantabria and France together. Structure covariates are included in both analysis
+NAC055 is tested within Cantabria, and FRL1 is tested in Cantabria and France together.  
+Structure covariates are included in both analyses.
 
-Binomial GLM bothways NAC055 insertion allele dosage as predictor and response: "NAC055_AI_corr.R" 
-Linear mixed model for flowering modeling replicates of genotypes as random effect: "Flowering_FRL1_v2.R"
+- Binomial GLM using the base R `glm()` function, with NAC055 insertion allele dosage as predictor and response:  
+  `NAC055_AI_corr.R`
+
+- Linear mixed model using the `lme4` package (v1.1-28), modeling replicates of genotypes as random effect:  
+  `Flowering_FRL1_v2.R`
