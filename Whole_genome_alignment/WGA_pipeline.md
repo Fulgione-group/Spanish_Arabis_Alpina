@@ -8,7 +8,7 @@ It contains both the **pre-RepeatFiller alignment** and the **post-RepeatFiller 
 
 ## Pre-RepeatFiller Steps
 
-1. **Chunk alignment with lastz**  
+1. **Chunk alignment with lastz (v.1.04.15)**  
 Split the query genome into chunks (e.g. 10 Mb). Align each chunk:
 
 ```
