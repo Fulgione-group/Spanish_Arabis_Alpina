@@ -1,4 +1,4 @@
-# Demographic Analysis using Relate
+# Demographic Analysis using Relate v.1.2.2
 
 ## Point estimates
 
