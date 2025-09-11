@@ -30,7 +30,7 @@
 
 ### Infer split times and plot results
 
-- 'relate_popsize_CAN_FR.R'
+- `relate_popsize_CAN_FR.R`
 
 ### Convert to tree sequence format
 - `Convert_relateWithGenes_to_treeseq_chr_final.sh`
