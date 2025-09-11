@@ -34,3 +34,6 @@ Scripts are included for:
 9. **Genotype_association_analysis (NAC055 and FRL1 genes)**
    - Linear modeling using structure covariates to test associations of genes with monthly aridity and flowering time
 
+10. **Whole_genome_alignment**
+    - Whole genome alignment of *Arabis montbretiana* and *Arabis alpina*. Create
+
