@@ -28,9 +28,13 @@
 
 ## Downstream analysis
 
+### Infer split times and plot results
+
+- 'relate_popsize_CAN_FR.R'
+
 ### Convert to tree sequence format
 - `Convert_relateWithGenes_to_treeseq_chr_final.sh`
-
+  
 ### Extract genealogies at FRL1 non-synonymous mutations
 - `Extract_FRIL1_mut_12619412.sh`  
 - `Extract_FRIL1_mut_12619091.sh`  
