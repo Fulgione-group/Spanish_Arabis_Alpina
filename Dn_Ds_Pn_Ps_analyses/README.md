@@ -8,7 +8,7 @@
   Adds the *A. montbretiana* sequence into the VCF.  
 
 - **mont_a_vcf.sh**  
-  Runs **SnpEff** annotation on the VCF.
+  Runs **SnpEff (v.5.2.a)** annotation on the VCF.
 
 ## Derived allele frequency and site classification
 - **ka_ks_7.py** and **ka_ks_7_gzip.py**  
