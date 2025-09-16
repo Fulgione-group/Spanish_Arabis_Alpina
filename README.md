@@ -1,38 +1,39 @@
-# Collection of scripts for the genome annotation
+# Spanish_Arabis_Alpina
 
-Structural and functional genome annotation of *Arabis alpina* following these steps:
+Scripts for all analyses supporting the manuscript  
+*“Adaptation to seasonal drought in Arabis alpina is linked to the demographic history and climatic changes since the last glacial maximum”*
 
+Each bottom-level subdirectory includes a README file.
 
-## Repeat masking
-- This aids the identification of genes by reducing the search space in the genome and provides a valuable resource on its own. A de novo repeat identification using `NCBI BLAST` and the `BuildDatabase` command was run. These repeat sequences are used to mask the assembly.
-`repeatmasker.sh`
+Scripts are included for:
 
-## Structural annotation
-`MAKER` is an extensive pipeline that bundles a series of tools to perform genome annotation. It includes evidence-based and ab initio driven approaches to predict genes and other genomic features. Its output is the structural annotation of a genome in standard file formats, which can be further analysed to add functional annotations such as the process a gene is involved in, its molecular function, or location of expression. 
+1. **SNP_calling**
+   - SNP calling with GATK
 
-- Repeat masking was performed outside of the Maker pipeline and the resulting GFF was supplied (see above).
+2. **Phasing**
+   - Two-step phasing approach using WhatsHap (read-pair information) and SHAPEIT (HMM-based phasing and imputation)
 
-- Prediction of gene structure using `Helixer`, based on Deep Neural Networks:
-`helixer.sh`
+3. **SNPable (mappability mask)**
+   - K-mer unique mapping based approach
 
-- Ab initio gene prediction using `Augustus`, based on Hidden-Markov Models: 
-`augustus.sh`
+4. **ParaMask**
+   - Detection of multicopy regions
 
-- Control files needed to run `Maker`:
-`maker_bopts.ctl`
-`maker_evm.ctl`
-`maker_opts.ctl`
+5. **3PCLR_Analysis**
+   - Detection of signatures of positive selection
 
-- Script to start the actual `Maker` pipeline:
-`maker.sh`
+6. **Demography**
+   - Based on genome-wide genealogies using Relate
 
-## Functional annotation
+7. **Structure_Analysis**
+   - Diversity estimates, Fis estimates, PCoA, and Neighbor-Joining tree based on 1-IBS distances
 
-- The Maker output was further processed with accessory scripts from Maker as well as various functions from the `AGAT` suite.
-postprocessing.sh
+8. **Dn_Ds_Pn_Ps_analyses**
+   - Differential synonymous vs. non-synonymous polymorphism and divergence analysis
 
-- Classification of protein families:
-interproscan.sh
+9. **Genotype_association_analysis (NAC055 and FRL1 genes)**
+   - Linear modeling using structure covariates to test associations of genes with monthly aridity and flowering time
 
-- Inferring protein homology:
-orthorbb.sh
+10. **Whole_genome_alignment**
+    - Whole genome alignment of *A. montbretiana* and *A. alpina*.  Create syntenic positions of *A. montbretiana* projected onto *A. alpina* coordinates
+
