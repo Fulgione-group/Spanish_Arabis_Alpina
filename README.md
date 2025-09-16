@@ -37,3 +37,6 @@ Scripts are included for:
 10. **Whole_genome_alignment**
     - Whole genome alignment of *A. montbretiana* and *A. alpina*.  Create syntenic positions of *A. montbretiana* projected onto *A. alpina* coordinates
 
+11. **Genome_annotation**
+    - Structural and functional annotation of *A. alpina* using Maker
+
