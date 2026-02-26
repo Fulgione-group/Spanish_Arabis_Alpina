@@ -13,3 +13,8 @@ Use the prephased VCF files to phase and impute per region with **SHAPEIT v4.2**
 
 - Cantabria:  
   `shapeit4_CAN_ParaOut_SNPable_20PerMiss_chrX.sh`
+
+## Phasing efficiency analysis
+
+- Longread based assesment of phasing accuracy including README in:
+`Phasing_accuracy_analysis`
