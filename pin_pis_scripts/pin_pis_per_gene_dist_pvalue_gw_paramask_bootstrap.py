@@ -1,10 +1,8 @@
 import pandas as pd
 import numpy as np
 import scipy
-from scipy.stats import shapiro
 from scipy.stats import norm
-import re
-from  scipy.stats import yeojohnson
+
 
 
 output=open("pin_pis_per_gene_filter_dist_pvalue_stats_paramask_bootstrap_z.tsv","w")
