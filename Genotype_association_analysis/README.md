@@ -8,3 +8,6 @@ Structure covariates are included in both analyses.
 
 - Linear mixed model using the `lme4` package (v1.1-28), modeling replicates of genotypes as random effect:  
   `Flowering_FRL1_v2.R`
+
+- Cox proportional hazard (of flowering) model with and without region as covariate:
+  `Cox_proportional_hazards_floweringTime_noVern_v2.R`
