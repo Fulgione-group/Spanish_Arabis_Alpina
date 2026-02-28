@@ -22,16 +22,14 @@
 - **ka_ks_7_cantabria_mont_a.sh** and **ka_ks_7_france_mont_a.sh**  
   Bash scripts to run `ka_ks_7.py` on the Cantabrian and French subsets, respectively.
 
-## Gene-level dN/dS and Pn/Ps calculations
-- **dn_ds_2.py**  
-  Uses the allele frequency file to calculate **Dn, Ds, Pn, and Ps per gene**.  
+## Logistic Regression(GEE)
+- **dn_ds_logistic_simple_input_format.py** and **pn_ps_logistic_simple_input_format.py**  
+  Filters for SNPs and converts the data to logistic regression input format for substitutions and polymorphisms.  
 
-- **dn_ds_2_france_mont_a_kakas7.sh** and **dn_ds_2_cantabria_mont_a_kakas7.sh**  
-  Bash scripts to run `dn_ds_2.py` on the Cantabrian and French subsets.
+- **dn_ds_logistic_simple_2_g2_g5_filter_for_low_pvt_var_5_pr_wald_0.016631363015617805_gee.py** and **pn_ps_logistic_simple_2_g2_g10_filter_for_low_pvt_var_10_wald0.4_gee.py**  
+  Scripts to perform GEE logistic regression on substitutions and polymorphisms
 
-- **cantabrians_vs_france_mont_a.ipynb**  
-  Jupyter notebook to calculate and visualize **dN/dS** and **Pn/Ps** ratios between Cantabrian and French populations.
+- **log_reg_dn_ds_gee.ipynb** and **log_reg_pn_ps_gee.ipynb**  
+  Jupyter notebook to visualize the coefficient distribution and do multiple hypothesis correction.
 
-## GO enrichment
-- **go_enrichment_pn_ps_paramask_filtered_top_go_final.R**  
-  Performs **GO enrichment analysis** based on the **Pn/Ps results**.
+
