@@ -33,12 +33,15 @@ Scripts are included for:
 8. **Dn_Ds_Pn_Ps_analyses**
    - Differential synonymous vs. non-synonymous polymorphism and divergence analysis
 
-9. **Genotype_association_analysis (NAC055 and FRL1 genes)**
+9. **pin_pis_scripts**
+   - Differential synonymous vs. non-synonymous diversity analysis
+
+10. **Genotype_association_analysis (NAC055 and FRL1 genes)**
    - Linear modeling using structure covariates to test associations of genes with monthly aridity and flowering time
 
-10. **Whole_genome_alignment**
+11. **Whole_genome_alignment**
     - Whole genome alignment of *A. montbretiana* and *A. alpina*.  Create syntenic positions of *A. montbretiana* projected onto *A. alpina* coordinates
 
-11. **Genome_annotation**
+12. **Genome_annotation**
     - Structural and functional annotation of *A. alpina* using Maker
 

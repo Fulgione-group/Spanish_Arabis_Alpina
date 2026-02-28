@@ -9,7 +9,9 @@ Samples per population were projected down to 90% of the total sample size (to a
 Including invariant sites ensures preservation of SNP density and correct denominators in the calculations.  
 Genotypes and populations are specified in the `popfile`.
 
-The program outputs both **bin-wise estimates** (per genomic window) and **genome-wide estimates** of Watterson’s theta, nucleotide diversity (π), and Tajima’s D.
+The program outputs both **bin-wise estimates** (per genomic window) and **genome-wide estimates** of Watterson’s theta, nucleotide diversity (π), and Tajima’s D, scripts for calculations on synonymous and non-synonymous sites **taj_d_and_pi_syn_non_syn**.
 
 - Run calculation:  
   `run_CalcDiv_DownSample_Allsites_Allpop_final.sh`
+
+

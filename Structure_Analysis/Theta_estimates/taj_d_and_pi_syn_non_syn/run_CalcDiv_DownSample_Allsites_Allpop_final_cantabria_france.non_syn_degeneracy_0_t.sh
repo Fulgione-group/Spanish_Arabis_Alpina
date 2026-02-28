@@ -4,4 +4,4 @@ java -jar CalcDiv_DownSample_Allsites_final.jar\
 	--cutoff 0.1\
 	--binsize 10000\
 	--haploidize\
-	--popfile /netscratch/dep_coupland/grp_fulgione/mehak/metadata/spanish_project_cantabria_france/unrelated_individuals_new_cantabria_france.popfile
+	--popfile unrelated_individuals_new_cantabria_france.popfile
