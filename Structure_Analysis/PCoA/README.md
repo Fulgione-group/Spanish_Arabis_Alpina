@@ -19,3 +19,6 @@ Multicopy regions inferred by ParaMask and unmappable regions inferred by SNPabl
 ## Run MDS algorithm and plot
 - Perform PCoA using **classical multidimensional scaling (`cmdscale`)** from the **MASS v7.3-53.1** package in R:  
   `MDS_Cantabria.R`
+
+- Perform PCoA for Cantabria and France, preprocessing was done the same as for Cantabrians only:
+  `MDS_CAN_FR.R` 
