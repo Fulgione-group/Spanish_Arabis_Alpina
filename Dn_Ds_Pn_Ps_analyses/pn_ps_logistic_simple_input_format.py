@@ -1,5 +1,5 @@
 import pandas as pd
-df_france_all_mut=pd.read_csv("/netscratch/dep_coupland/grp_fulgione/mehak/software/ka_ks/canta_france_mont_a/output_kaks_7_france_mont_a.txt", sep="\t", header=None)
+df_france_all_mut=pd.read_csv("output_kaks_7_france_mont_a.txt", sep="\t", header=None)
 df_france_all_mut.columns=["chrom","pos","non_syn_allele_freq","syn_allele_freq","gene","syn_non_syn","polymorphism_substitution"]
 df_cantabria_all_mut=pd.read_csv("/netscratch/dep_coupland/grp_fulgione/mehak/software/ka_ks/canta_france_mont_a/output_kaks_7_cantabria_mont_a.txt", sep="\t", header=None)
 df_cantabria_all_mut.columns=["chrom","pos","non_syn_allele_freq","syn_allele_freq","gene","syn_non_syn","polymorphism_substitution"]

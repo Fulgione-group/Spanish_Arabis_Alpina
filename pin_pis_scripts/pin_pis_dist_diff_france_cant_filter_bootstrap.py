@@ -13,11 +13,11 @@ def my_stat(pin_france, pis_france,pin_cant,pis_cant):
     return diff
 
 
-df_france=pd.read_csv("/netscratch/dep_coupland/grp_fulgione/mehak/software/ka_ks/canta_france_mont_a/pi_per_site3_france_mont_a.txt", sep="\t", header=None )
-df_cantabria=pd.read_csv("/netscratch/dep_coupland/grp_fulgione/mehak/software/ka_ks/canta_france_mont_a/pi_per_site3_cantabria_mont_a.txt", sep="\t", header=None )
+df_france=pd.read_csv("pi_per_site3_france_mont_a.txt", sep="\t", header=None )
+df_cantabria=pd.read_csv("pi_per_site3_cantabria_mont_a.txt", sep="\t", header=None )
 df_france.columns=["chr","pos","pi_france","gene","ns"]
 df_cantabria.columns=["chr","pos","pi_cant","gene","ns"]
-paramask=pd.read_csv("/netscratch/dep_coupland/grp_fulgione/mehak/data/spanish_project/pin_pis_bootstrap/paramask_filtered_genes.txt",sep="\t")
+paramask=pd.read_csv("paramask_filtered_genes.txt",sep="\t")
 paramask.columns=["index","gene"]
 genes=list(paramask["gene"])
 for gene in genes:

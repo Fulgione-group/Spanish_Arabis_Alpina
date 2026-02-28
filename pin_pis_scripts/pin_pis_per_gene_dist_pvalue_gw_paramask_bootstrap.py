@@ -15,7 +15,7 @@ dist=dist[1:]
 #print(dist[0])
 genes_df=pd.read_csv("pin_pis_stats_diff_france_spain_filter_bootstrap.tsv", sep="\t")
 
-paramask=pd.read_csv("/netscratch/dep_coupland/grp_fulgione/mehak/data/spanish_project/pin_pis_bootstrap/paramask_filtered_genes.txt",sep="\t")
+paramask=pd.read_csv("pin_pis_bootstrap/paramask_filtered_genes.txt",sep="\t")
 paramask.columns=["index","gene"]
 
 genes_df=genes_df[genes_df["gene"].isin(list(paramask["gene"]))]
