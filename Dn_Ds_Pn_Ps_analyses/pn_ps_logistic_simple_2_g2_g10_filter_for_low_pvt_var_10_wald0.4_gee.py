@@ -3,7 +3,7 @@ import statsmodels.formula.api as smf
 import numpy as np
 import statsmodels.api as sm
 df_log=pd.read_csv("output_log_reg_df.tsv",sep="\t")
-output=open("statistics_per_gene_substitution_g3_g10_filter_low_pvt_var_10_wald0.4184490972257678_gee.tsv","w")
+output=open("statistics_per_gene_polymorphism_g3_g10_filter_low_pvt_var_10_wald0.4184490972257678_gee.tsv","w")
 output.write("gene"+"\t"+"OR"+"\t"+"coeff"+"\t"+"pvalues"+"\t"+"bse"+"\t"+"wald_p"+"\n")
 genes=df_log["gene"].unique()
 R = np.array([[0, 1]])  # select coefficient 1 (second element)
