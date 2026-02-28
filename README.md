@@ -12,6 +12,7 @@ Scripts are included for:
 
 2. **Phasing**
    - Two-step phasing approach using WhatsHap (read-pair information) and SHAPEIT (HMM-based phasing and imputation)
+   - Assessment of phasing accuracy
 
 3. **SNPable (mappability mask)**
    - K-mer unique mapping based approach
@@ -21,6 +22,7 @@ Scripts are included for:
 
 5. **3PCLR_Analysis**
    - Detection of signatures of positive selection
+   - Neutral simulation of 3P-CLR scores
 
 6. **Demography**
    - Based on genome-wide genealogies using Relate
