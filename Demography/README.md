@@ -1,5 +1,9 @@
 # Demographic Analysis using Relate v.1.2.2
 
+## Polarize VCF with outgroup in fasta
+-polarize phased VCF with java script **bytecode** and **src** available
+  `polarize_CAN_FR_phased.sh`
+
 ## Point estimates
 
 ### Infer genealogies with Relate
