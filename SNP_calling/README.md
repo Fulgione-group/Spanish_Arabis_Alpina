@@ -4,6 +4,16 @@ We used [GATK v4.2.0.0](https://gatk.broadinstitute.org/hc/en-us/sections/360012
 Read groups were assigned, adapters were soft-clipped, duplicates were marked, and reads were aligned to the Pajares reference genome [v5.1](http://www.arabis-alpina.org/data/ArabisAlpina/assemblies/V5.1/Arabis_alpina.MPIPZ.version_5.1.chr.all.fasta.gz) ([Jiao & Schneeberger, 2017](https://www.sciencedirect.com/science/article/pii/S1369526616301315?via%3Dihub)) using the MEM algorithm of **BWA v0.7.17** ([Li & Durbin, 2009](https://pubmed.ncbi.nlm.nih.gov/19451168/)).  
 Additionally, we applied hard filters.
 
+
+#Genotyping FRL1 at non-synonymous sites in Greek outcrossers from Gutiérrez-Valencia et al., 2022 (Gre1 and Gre2)
+
+All steps of the pipeline below up to and including mapping were performed. Additionally bams were sorted.
+
+<br>
+
+## Genotyping_Outcrossers.sh
+The six non-synonymous sites were called with bcftools call function
+
 <br>
 
 # Pipeline
