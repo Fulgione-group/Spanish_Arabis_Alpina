@@ -1171,8 +1171,9 @@ plot_grid(plotlist = list(E3F1_rCCR,E4F1_rCCR,E17F1_rCCR, E3E4_rCCR, E3E17_rCCR,
 
 
 
-# Create a plot
-#cor analysis split times
+##################correlation analysis split times
+
+##initial split time anylsis
 split_times_ES<- split_times[grep(x = split_times$pop1,pattern = "ES")[grep(x = split_times$pop1,pattern = "ES") %in% grep(x = split_times$pop2,pattern = "ES")],]
 # split_times_ES<- split_times_ES[order(split_times_ES$point_estimate),]
 i<-1
@@ -1242,3 +1243,190 @@ ggplot(data = split_times_ES, aes(x = max_lon, y = point_estimate)) +
   )
 
   
+
+########after revision with permutations###
+library(geosphere)
+
+split_times_ES<- split_times[grep(x = split_times$pop1,pattern = "ES")[grep(x = split_times$pop1,pattern = "ES") %in% grep(x = split_times$pop2,pattern = "ES")],]
+i<-1
+while(i <nrow(split_times_ES)){
+  split_times_ES<-split_times_ES[!(split_times_ES$pop1==split_times_ES$pop2[i] & split_times_ES$pop2==split_times_ES$pop1[i]),]
+  i<-i+1
+}
+split_times_ES
+
+
+coords<-read.table("~/Data/Spanish_adaptation/coords.txt", header=T, sep="\t")
+coords<- coords[,1:3]
+split_times_ES$lon1 <-NA
+split_times_ES$lon2 <-NA
+split_times_ES$lat1 <-NA
+split_times_ES$lat2 <-NA
+
+split_times_ES$max_lon <- NA
+split_times_ES$min_lon <- NA
+split_times_ES$mid_lon <- NA
+split_times_ES$AvLonDiff_ToMaxDiff<- NA
+for(i in 1:nrow(split_times_ES)){
+
+  lon1 <- coords$lon[split_times_ES$pop1[i] == coords$group]
+  lon2 <- coords$lon[split_times_ES$pop2[i] == coords$group]
+  lat1 <- coords$lat[split_times_ES$pop1[i] == coords$group]
+  lat2 <- coords$lat[split_times_ES$pop2[i] == coords$group]
+
+  split_times_ES$lon1[i] <-lon1
+  split_times_ES$lon2[i] <-lon2
+  split_times_ES$lat1[i] <-lat1
+  split_times_ES$lat2[i] <-lat2
+
+  # reorder so pop1 = western, pop2 = eastern
+  if(lon1 > lon2){
+
+    tmp <- split_times_ES$pop1[i]
+    split_times_ES$pop1[i] <- split_times_ES$pop2[i]
+    split_times_ES$pop2[i] <- tmp
+
+    tmp_lon <- lon1
+    lon1 <- lon2
+    lon2 <- tmp_lon
+  }
+
+  split_times_ES$max_lon[i] <- lon2
+  split_times_ES$min_lon[i] <- lon1
+  split_times_ES$mid_lon[i] <- (lon1+lon2)/2
+}
+split_times_ES$point_estimate <- as.numeric(split_times_ES$point_estimate)
+
+max_lon <- max(split_times_ES$lon1, split_times_ES$lon2)
+split_times_ES$AvLonDiff_ToMaxDiff <-  (max_lon - split_times_ES$lon1)/2 + (max_lon - split_times_ES$lon2)/2
+split_times_ES$MinLonDiff_ToMaxDiff <-  pmin((max_lon - split_times_ES$lon1),(max_lon - split_times_ES$lon2))
+
+
+
+
+# observed correlation
+#geographic distance
+obs_corr_dist <- cor(split_times_ES$dist,
+               split_times_ES$point_estimate)
+#mid point longitude of each pair
+obs_corr_mid <- cor(split_times_ES$mid_lon,
+                split_times_ES$point_estimate)
+#max (most eastern) longitude of each pair
+obs_corr_max <- cor(split_times_ES$max_lon,
+                split_times_ES$point_estimate)
+#min (most western) longitude of each pair
+obs_corr_min <- cor(split_times_ES$min_lon,
+                split_times_ES$point_estimate)
+#minimal geographic distance to the most eastern population in the set
+obs_corr_Mindist2maxlonpop <- cor(split_times_ES$Mindist2maxlonpop,
+                                  split_times_ES$point_estimate)
+#average geographic distance of the population pair to the most eastern population in the set
+obs_corr_Meandist2maxlonpop <-cor(split_times_ES$Meandist2maxlonpop
+                                  , split_times_ES$point_estimate)
+
+
+####permutations randomly shuffle coordinates between popultions
+
+set.seed(1)
+
+nperm <- 1000000
+
+perm_corr_mid <- numeric(nperm)
+perm_corr_max <- numeric(nperm)
+perm_corr_min <- numeric(nperm)
+perm_corr_dist <- numeric(nperm)
+perm_corr_Mindist2maxlonpop <- numeric(nperm)
+perm_corr_Meandist2maxlonpop <- numeric(nperm)
+
+
+length(unique(split_times_ES$pop1))
+length(pop_lons)
+
+pop_coord <- coords[,c(2,3)]
+row.names(pop_coord) <- coords$group
+pop_coord<- pop_coord[rownames(pop_coord)!="ES15",]
+
+
+
+pop_names <- rownames(pop_coord)
+
+i1 <- match(split_times_ES$pop1, pop_names)
+i2 <- match(split_times_ES$pop2, pop_names)
+
+lon <- pop_coord[,1]
+lat <- pop_coord[,2]
+y <- split_times_ES$point_estimate
+
+dist_mat <- distm(
+  x = cbind(lon, lat),
+  fun = distHaversine
+)
+
+dist2maxlonpop <- dist_mat[13,]
+
+op<-0.01*nperm
+i<-1
+for(i in 1:nperm){
+
+  idx <- sample(seq_along(lon))
+
+  plon <- lon[idx]
+
+  perm_mid_lon <- (plon[i1] + plon[i2]) / 2
+  perm_max_lon <- pmax(plon[i1], plon[i2])
+  perm_min_lon <- pmin(plon[i1], plon[i2])
+
+  perm_dist <- dist_mat[cbind(idx[i1], idx[i2])]
+  perm_dist2maxlonpop <- dist2maxlonpop[idx]
+  perm_Mindist2maxlon <- pmin(perm_dist2maxlonpop[i1],perm_dist2maxlonpop[i2])
+  perm_Meandist2maxlon <- (perm_dist2maxlonpop[i1])/2 + (perm_dist2maxlonpop[i2])/2
+
+  perm_corr_dist[i] <- cor(perm_dist, y)
+  perm_corr_mid[i]  <- cor(perm_mid_lon, y)
+  perm_corr_max[i]  <- cor(perm_max_lon, y)
+  perm_corr_min[i]  <- cor(perm_min_lon, y)
+  perm_corr_Mindist2maxlonpop[i] <- cor(perm_Mindist2maxlon, y)
+  perm_corr_Meandist2maxlonpop[i] <- cor(perm_Meandist2maxlon, y)
+
+  if(i%%op==0){
+    print(floor(100*i/nperm))
+  }
+}
+
+p_perm_dist <- mean(abs(perm_corr_dist) >= abs(obs_corr_dist))
+p_perm_mid <- mean(abs(perm_corr_mid) >= abs(obs_corr_mid))
+p_perm_max <- mean(abs(perm_corr_max) >= abs(obs_corr_max))
+p_perm_min <- mean(abs(perm_corr_min) >= abs(obs_corr_min))
+p_perm_Mindist2maxlonpop <- mean(abs(perm_corr_Mindist2maxlonpop) >= abs(obs_corr_Mindist2maxlonpop))
+p_perm_Meanndist2maxlonpop <- mean(abs(perm_corr_Meandist2maxlonpop) >= abs(obs_corr_Meandist2maxlonpop))
+
+obs_corr_dist
+#0.8535486
+p_perm_dist
+#1e-05
+
+obs_corr_mid
+#0.6866079
+p_perm_mid
+#0.000256
+
+obs_corr_max
+#0.8360898
+p_perm_max
+#2.7e-05
+
+
+obs_corr_min
+#0.1404573
+p_perm_min
+#0.470391
+
+obs_corr_Mindist2maxlonpop
+#-0.8371181
+p_perm_Mindist2maxlonpop
+#2.6e-05
+
+obs_corr_Meandist2maxlonpop
+#-0.6880119
+p_perm_Meanndist2maxlonpop
+#0.000238

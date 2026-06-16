@@ -37,7 +37,7 @@ We estimated phasing accuracy by comparing heterozygotes sites of phased short r
 - filter out SNPapble ParaMask regions:
 `filter_bedtools_ParaMask_nogenes0kb_CAN_FR_ES04.sh`
 
-- polarize VCF to montbretiana: 
+- polarize VCF to montbretiana (java byte code and src code available in main Demography folder): 
 `polarize_hifi_ES04.sh`
 `add_anc_flag_header.sh`
 
