@@ -39,12 +39,15 @@ Scripts are included for:
 10. **Genotype_association_analysis (NAC055 and FRL1 genes)**
    - Linear modeling using structure covariates to test associations of genes with monthly aridity and flowering time
 
-11. **Treesequence analysis of the FRL1 locus**
+11. **FRL1_treeseq**
    - Compare genealogies at FRL1 to genome-wide genealogies 
 
-12. **Whole_genome_alignment**
-    - Whole genome alignment of *A. montbretiana* and *A. alpina*.  Create syntenic positions of *A. montbretiana* projected onto *A. alpina* coordinates
+12. **FRL1_ArabisSpecies**
+   - FRL1 alignment to different Arabis species
 
-13. **Genome_annotation**
-    - Structural and functional annotation of *A. alpina* using Maker
+13. **Whole_genome_alignment**
+   - Whole genome alignment of *A. montbretiana* and *A. alpina*.  Create syntenic positions of *A. montbretiana* projected onto *A. alpina* coordinates
+
+14. **Genome_annotation**
+   - Structural and functional annotation of *A. alpina* using Maker
 
