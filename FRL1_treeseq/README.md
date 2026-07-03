@@ -28,6 +28,13 @@ Script:
 
 `calc_tree_stats_no_lowdensity_with_concordance_notmrca.py`
 
+Additionaly stats
+- Root to child ratio
+
+Script:
+
+`calc_tree_stats_no_lowdensity_with_concordance_root_child_ratio.py`
+
 ## Identification of long haplotypes separating Cantabrian and French lineages
 
 Consecutive trees were merged into haplotype blocks when they met the following criteria:
